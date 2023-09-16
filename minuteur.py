@@ -1,6 +1,10 @@
 #!/usr/bin/env python3
 
 # inspiré de https://raspberry-lab.fr/Composants/Afficheur-7-Segments-x4-TM1637/
+# et de https://github.com/depklyon/raspberrypi-tm1637
+#
+# C'est en Python 3
+# pour installer el module : pip3 install raspberrypi-tm1637
 
 # Importation des librairies TM1637 et time
 from tm1637 import TM1637
@@ -13,7 +17,8 @@ secondes = int(input("Secondes : "))
 print("- Demarage du minuteur : " + str(minutes) + ":" + str(secondes) + " -")
 
 # Initialisation de l'afficheur
-afficheur = TM1637(clk=23, dio=24)
+#afficheur = TM1637(clk=23, dio=24)
+afficheur = TM1637(clk=5, dio=4)
 
 # Definition de la luminosite (0-7)
 afficheur.brightness(2)
