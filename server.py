@@ -3,28 +3,14 @@
 import threading
 from time import sleep
 
-from flask import Flask, render_template, url_for, jsonify
+from flask import Flask, render_template, url_for, jsonify, request
 
 from raspberry import RaspberryPi
 
 app = Flask(__name__)
 
+rasp = RaspberryPi()
 
-# def init():
-#     url_for('static', filename='style.css')
-#
-# def create_app():
-#     app = Flask(__name__)
-#
-#     with app.app_context():
-#         init()
-#
-#     return app
-#
-#
-# app=create_app()
-
-rasp= RaspberryPi()
 
 @app.route("/")
 def hello_world():
@@ -36,36 +22,46 @@ def hello_world():
 def hello(name=None):
     return render_template('page.html', name=name)
 
+
 def horloge():
     rasp.horloge()
-    # import horloge
-    # horloge.stop()
-    # sleep(1.0)
-    # horloge.demarrage()
+    pass
 
-def minuteur():
-    # import minuteur
-    # minuteur.demarrage()
-    rasp.minuteur(1,30)
+
+def minuteur(heure):
+    print('heure=', heure)
+    heures = 0
+    minutes = 1
+    secondes = 30
+    if heure != None and len(heure) > 0:
+        tab = heure.split(':')
+        if len(tab) == 3:
+            heures = int(tab[0])
+            minutes = int(tab[1])
+            secondes = int(tab[2])
+    print('heure:', heures, 'minutes:', minutes, 'secondes:', secondes)
+    rasp.minuteur(minutes, secondes)
+    pass
+
 
 def arret():
     rasp.arret()
-    # import arret,horloge
-    # horloge.stop()
-    # sleep(1.0)
-    # arret.demarrage()
+    pass
+
 
 @app.route('/api/action/<action>')
 def action(action=None):
     if action != None:
         print('action=', action)
-        if action=='horloge':
+        if action == 'horloge':
             hologe_thread = threading.Thread(target=horloge, name="horloge")
             hologe_thread.start()
-        elif action=='minuteur':
-            minuteur_thread = threading.Thread(target=minuteur, name="minuteur")
+        elif action == 'minuteur':
+            print('param', request.args['time'])
+            heure = request.args['time']
+            minuteur_thread = threading.Thread(target=minuteur, name="minuteur", args=(heure,))
             minuteur_thread.start()
-        elif action=='arret':
+        elif action == 'arret':
             arret_thread = threading.Thread(target=arret, name="arret")
             arret_thread.start()
         dictionnaire = {

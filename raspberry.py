@@ -33,7 +33,7 @@ class RaspberryPi:
 
         # Initialisation de l'afficheur et definition de la luminosite (0-7)
         self._initAfficheur()
-        self.afficheur.brightness(1)
+        self.afficheur.brightness(0)
 
         self.finHorloge = False
         # Boucle infinie appelant la fonction afficher_horloge()
