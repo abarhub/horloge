@@ -5,6 +5,8 @@ from time import sleep
 
 from flask import Flask, render_template, url_for, jsonify
 
+from raspberry import RaspberryPi
+
 app = Flask(__name__)
 
 
@@ -22,6 +24,8 @@ app = Flask(__name__)
 #
 # app=create_app()
 
+rasp= RaspberryPi()
+
 @app.route("/")
 def hello_world():
     return "<p>Hello, World!</p>"
@@ -33,20 +37,23 @@ def hello(name=None):
     return render_template('page.html', name=name)
 
 def horloge():
-    import horloge
-    horloge.stop()
-    sleep(1.0)
-    horloge.demarrage()
+    rasp.horloge()
+    # import horloge
+    # horloge.stop()
+    # sleep(1.0)
+    # horloge.demarrage()
 
 def minuteur():
-    import minuteur
-    minuteur.demarrage()
+    # import minuteur
+    # minuteur.demarrage()
+    rasp.minuteur(1,30)
 
 def arret():
-    import arret,horloge
-    horloge.stop()
-    sleep(1.0)
-    arret.demarrage()
+    rasp.arret()
+    # import arret,horloge
+    # horloge.stop()
+    # sleep(1.0)
+    # arret.demarrage()
 
 @app.route('/api/action/<action>')
 def action(action=None):

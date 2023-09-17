@@ -18,7 +18,7 @@ def demarrage():
 
     # Initialisation de l'afficheur et definition de la luminosite (0-7)
     afficheur = TM1637(clk=5, dio=4)
-    afficheur.brightness(2)
+    afficheur.brightness(1)
 
     fin = False
     # Boucle infinie appelant la fonction afficher_horloge()
