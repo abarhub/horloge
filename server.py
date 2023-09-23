@@ -48,6 +48,9 @@ def arret():
     rasp.arret()
     pass
 
+def demarrage():
+    print("startup")
+    action(action='horloge')
 
 @app.route('/api/action/<action>')
 def action(action=None):
@@ -72,3 +75,17 @@ def action(action=None):
         return jsonify(dictionnaire)
     else:
         return ''
+
+# @app.before_first_request
+# def my_func():
+#     print('demarrage du programme ...')
+#     demarrage()
+#     print('demarrage du programme OK')
+
+@app.teardown_appcontext
+def teardown_appcontext(response_or_exc):
+    print('arret du programme ...')
+    arret()
+    print('arret du programme OK')
+
+#demarrage()
