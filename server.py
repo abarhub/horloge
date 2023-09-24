@@ -82,10 +82,10 @@ def action(action=None):
 #     demarrage()
 #     print('demarrage du programme OK')
 
-@app.teardown_appcontext
-def teardown_appcontext(response_or_exc):
-    print('arret du programme ...')
-    arret()
-    print('arret du programme OK')
+# @app.teardown_appcontext
+# def teardown_appcontext(response_or_exc):
+#     print('arret du programme ...')
+#     arret()
+#     print('arret du programme OK')
 
 #demarrage()
